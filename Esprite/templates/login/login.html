@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Login{% endblock  %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    
+        <form action="" method="POST" class="form">
+            <div class="login_banner px-2 py-1">
+                <h2>Login</h2>
+                <h3>Esprite.com</h3>
+            </div>
+            {% csrf_token %}
+            <div class="px-2 pb-3">
+               <div class="bg-warning">
+                {% if errors %}
+                    <p class="">{{ errors}}</p>
+                {% endif %}
+               </div>
+                <label for="username">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="px-2 pb-3">
+                <label for="password">Password</label>
+                {{ form.password }}
+            </div>
+            <div class="px-2 pb-2">
+                <input type="checkbox" name="remember" id=""> Remember me
+            </div>
+            <button class="btn btn-sm btn-info my-2 mx-2">Login</button>
+            <div class="px-2 pb-2 signup">
+                <span>Don't have an account? <a href="">Sign Up</a></span>
+            </div>
+        </form>
+  
+    
+{% endblock  %}

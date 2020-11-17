@@ -1,0 +1,28 @@
+{% for product in products  %}
+	<tr>
+		<td class="cart_product">
+			<a href=""><img width="120px" height="125px" src="{{ product.item.thumbnail.url }}" alt=""></a>
+		</td>
+		<td class="cart_description">
+			<h4><a href="">{{ product.item.title }}</a></h4>
+		</td>
+		<td class="cart_price">
+			<p>Ksh {{ product.item.new_price }}</p>
+		</td>
+		<td class="cart_quantity">
+			<div class="cart_quantity_button">
+				<a class="cart_quantity_up" href="{% url 'product:update' product.pk %}"> + </a>
+				<input class="cart_quantity_input" type="text" name="quantity" value="{{product.quantity}}" autocomplete="off" size="2">
+				<a class="cart_quantity_down" href="{% url 'product:decrease' product.quantity product.pk %}"> - </a>
+			</div>
+		</td>
+		<td class="cart_total">
+			<p class="cart_total_price">{{product.price}}</p>
+		</td>
+		<td class="cart_delete">
+			<a class="cart_quantity_delete" href="{% url 'product:delete' product.item.slug %}"><i class="fa fa-times"></i></a>
+		</td>
+	</tr>
+{% empty %}
+	<td colspan="12" class="col-md-12 text-center"><h1>No items in the cart</h1></td>
+{% endfor %}

@@ -1,0 +1,80 @@
+@font-face {
+    src: url(./fonts/static/PlayfairDisplay-Black.ttf);
+    font-family: PlayFair;
+}
+
+@font-face {
+    src: url(./fonts/GrenzeGotisch-VariableFont_wght.ttf);
+    font-family: Grenze;
+}
+
+@font-face {
+    src: url(./fonts/static/PlayfairDisplay-Regular.ttf);
+    font-family: Play;
+}
+body {
+    margin:0;
+    padding:0;
+}
+
+.homepage {
+    background:url(./travel.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+}
+
+.homepage header > div {
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navigation-menu h3 {
+    font-family: PlayFair;
+    font-size: 40px;
+    color:#999;
+}
+
+.navigation-menu ul {
+    font-family: Grenze;
+    font-size: 20px;
+}
+
+.form {
+    width:45vw;
+    margin:0 auto;
+    border: 1px solid #ccc;
+    margin-top: 15vh;  
+}
+.login_banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: darkslateblue;
+    color:white;
+    font-family: Grenze;
+}
+
+.form label {
+    width:100%;
+    font-family: Play;
+    font-weight: lighter;
+    font-size: 14px;
+}
+
+.form input:not([type="checkbox"]) {
+    width:100%;
+    padding:7px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Play;
+    border: 1px inset #ccc;
+}
+
+.signup {
+    font-family: Play;
+    font-size: 14px;
+}

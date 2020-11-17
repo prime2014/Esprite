@@ -1,0 +1,61 @@
+{% extends 'items.html' %}
+
+{% load static %}
+
+{% block title %}Shop | Esprite {% endblock  %}
+
+
+
+	
+{% block content %}	
+	<section id="advertisement">
+		<div class="container">
+            <img src="{% static 'images/shop/advertisement.jpg' %}" alt="">
+		</div>
+	</section>
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				{% include 'categories.html' %}
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items"><!--features_items-->
+						<h2 class="title text-center">Features Items</h2>
+						{% for product in products  %}
+                            <div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="{{ product.thumbnail.url }}" alt="" />
+										<h2>Ksh {{ product.new_price }}</a></h2>
+										<p><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></p>
+										<a href="{% url 'product:add_cart' product.slug %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+								</div>
+								
+							</div>
+						    </div>
+                        {% endfor %}
+						
+						{% if page_obj.has_other_pages %}
+							<ul class="pagination col-md-12">
+						  	 <li><a href="?page=1">&laquo;</a></li>
+							{% for i in page_obj.paginator.page_range %}
+								{% if page_obj.number == i %}
+									<li class="active"><a href="?page={{i}}">{{i}}</a></li>
+								{% else %}
+									<li><a href="?page={{i}}">{{i}}</a></li>
+								{% endif %}
+							{% endfor %}
+								<li><a href="?page={{page_obj.paginator.num_pages}}">&raquo;</a></li>
+						</ul>
+						{% endif %}
+					</div><!--features_items-->
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}	
+	

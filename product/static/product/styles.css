@@ -1,0 +1,151 @@
+@font-face {
+    src: url(../fonts/static/GrenzeGotisch-Regular.ttf);
+    font-family: Grenze;
+}
+@font-face {
+    src: url(../fonts/static/PlayfairDisplay-Regular.ttf);
+    font-family: PlayFair;
+}
+body {
+    margin:0 auto;
+    padding:0;
+    box-sizing: border-box;
+    
+}
+
+.body-template {
+    width:90vw;
+    margin: auto;
+    padding:20px 10px;
+}
+.search_form {
+    width:50vw;
+    
+}
+.search_form input {
+    width:90%;
+    padding:2px 3px;
+}
+
+.search_btn {
+    background: goldenrod;
+    color: white;
+    border: 1px solid goldenrod;
+    border-radius:3px;
+    padding:2px 3px;
+    margin: 0;
+}
+
+.navigate, .menu-section {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.remove_btn {
+    background-color: crimson;
+    color: white;
+    border: 1px solid rgb(221, 61, 93);
+    border-radius: 5px;
+    font-weight: lighter;
+    padding:3px 5px;
+    font-size: 15px;
+}
+.category-list {
+    font-family:PlayFair;
+}
+.rate {
+    display: flex;
+}
+.rate ul {
+    padding:0;
+    margin:0;
+}
+.rate ul li:hover {
+    cursor: pointer;
+}
+.menu-section ul {
+    font-family: PlayFair;
+}
+.billing-row label {
+    display:block;
+    font-size: 14px;
+}
+.billing-row h2 {
+    margin:0;
+    padding:0;
+}
+.order-table {
+    font-size: 14px;
+}
+.billing-row input, select {
+    width:100%;
+    font-size: 14px;
+    font-weight: lighter;
+    background-color: #ddd;
+    border:1px solid #ccc;
+    padding:5px 5px;
+}
+.btns4 {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item-text {
+    font-size:14px;
+}
+.navigate h1, .navigate ul {
+    margin:0;
+    padding:0;
+}
+.cart-template {
+    margin:auto;
+    width:95vw;
+}
+.summary {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.category-list li{
+    list-style-type: none;
+}
+.category-list {
+    padding:0;
+    margin:0;
+}
+.cart-quantity {
+    position:absolute;
+    top:-5px;
+    left:15px;
+}
+.basket{
+    position:relative;
+}
+ul li a {
+    font-size:14px;
+    color:white;
+    text-decoration: none;
+    font-weight: bolder;
+}
+.border-btns{
+    background: transparent;
+    border: none;
+}
+
+ul li a:hover {
+    color:#aaa;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.bottom-bar {
+    background-color: #5a5a5d;
+}
+
+.username {
+    color:greenyellow;
+}
+
+.bottom-bar span {
+    font-size: 14px;
+}

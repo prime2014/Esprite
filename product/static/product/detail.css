@@ -1,0 +1,46 @@
+body {
+    margin:0;
+    padding:0;
+    background-color: #fff;
+}
+.attribute {
+    margin:0;
+    padding:0 10px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrapper {
+    width:100%;
+    height:auto;
+    overflow:hidden;
+}
+
+.item {
+    height:300px;
+    background-color: aquamarine;
+}
+.comment-form div div textarea{
+    font-size: 14px;
+}
+.imgStyle {
+    object-fit: cover;
+}
+.comment {
+    background-color: #fffff3;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font-size:14px;
+    box-shadow:2px 2px 1px 3px #fff, -2px -2px 7px 2px #999;
+}
+.card-detail {
+    font-size:14px;
+}
+.golden {
+    color:gold;
+}
+.rating {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
