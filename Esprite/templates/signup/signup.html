@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Signup{% endblock  %}
+
+
+{% block content %}
+    <div class="signup_banner">
+        <img class="image_banner" width="200" height="80" src="{% static 'images/esprit.jpg' %}" alt="">
+        <div>
+            <form action="{% url 'signup' %}" method="POST" class="signup_form">
+                <div class="login_banner px-2 py-1">
+                    <h2>Sign Up</h2>
+                    <h3>Esprit.com</h3>
+                </div>
+                {% csrf_token %}
+                <div class="row px-2 py-1">
+                    <div class="col-md-6">
+                        <label for="firstname">Enter First Name</label>
+                        {{ form.first_name }}
+                        <span class="text-danger error">{{ form.errors.first_name }}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastname">Enter Last Name</label>
+                        {{ form.last_name }}
+                        <span class="text-danger error">{{ form.errors.last_name }}</span>
+                    </div>
+                </div>
+                <div class="row px-2 py-1">
+                    <div class="col-md-12">
+                        <label for="username">Enter Username</label>
+                        {{ form.username }}
+                        <span class="text-danger error">{{ form.errors.username }}</span>
+                    </div>
+                </div>
+                <div class="row px-2 py-1">
+                    <div class="col-md-12">
+                        <label for="email">Enter Email</label>
+                        {{ form.email }}
+                        <span class="text-danger error">{{ form.errors.email }}</span>
+                    </div>
+                </div>
+                <div class="row px-2 py-1">
+                    <div class="col-md-12">
+                        <label for="password1">Enter Password</label>
+                        {{ form.password1 }}
+                        <span class="text-danger error">{{ form.errors.password1 }}</span>
+                    </div>
+                </div>
+                <div class="row px-2 py-1">
+                    <div class="col-md-12">
+                        <label for="password2">Confirm your password</label>
+                        {{ form.password2 }}
+                        <span class="text-danger error">{{ form.errors.password2 }}</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2 buttns">
+                    <a href="{% url 'login' %}" class="btn btn-success btn-sm">Back</a>
+                    <button class="btn btn-sm btn-info">Submit</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+{% endblock  %}

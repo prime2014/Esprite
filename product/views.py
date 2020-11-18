@@ -167,6 +167,7 @@ def update_cart(request, pk):
 
 def decrease_quantity(request, quantity, pk):
     """Decreases the quantity of each individual item in the cart on clicking the (-) sign"""
+    url = request.META['HTTP_REFERER']
     prev_price = 0
     if int(quantity) > 1:
         id = pk
@@ -179,9 +180,9 @@ def decrease_quantity(request, quantity, pk):
         order = Order.objects.get(user=request.user, ordered=False)
         order.total_amount -= prev_price - cart_item.price
         order.save()
-        return redirect('product:cart')
+        return redirect(url)
     else:
-        return redirect('product:cart')
+        return redirect(url)
 
 
 class RequestOrder(FormView):

@@ -78,3 +78,41 @@ body {
     font-family: Play;
     font-size: 14px;
 }
+
+.signup_banner {
+    width:70vw;
+    margin:auto;
+}
+
+.signup_form {
+    border:2px inset #ccc;
+}
+.signup_form input {
+    width:100%;
+    border:1px inset #ccc;
+    border-radius: 5px;
+    padding:4px 5px;
+}
+.signup_form h2,.signup_form h3 {
+    margin: 0;
+    padding: 0;
+}
+.signup_form label {
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.error {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.image_banner {
+    transform: translateX(27vw);
+}
+
+.buttns {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}

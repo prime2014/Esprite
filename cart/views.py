@@ -5,8 +5,6 @@ from product.models import Products
 from .models import Cart, Order
 from django.contrib import messages
 from decimal import Decimal
-from django.db import connection
-from django.urls import reverse
 
 
 def request_cart(request, slug):

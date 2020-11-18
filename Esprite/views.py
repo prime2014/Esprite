@@ -11,6 +11,26 @@ class HomePageView(TemplateView):
     template_name = "home/homepage.html"
 
 
+class SignupView(FormView):
+    template_name = "signup/signup.html"
+    form_class = SignupForm
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        if request.method == "POST":
+            form = SignupForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                login(request, user)
+                return redirect('product:list')
+            else:
+                errors = form.errors
+                return render(request, self.template_name, {'form': form, 'errors': errors})
+
+
 class LoginView(FormView):
     template_name = "login/login.html"
     form_class = AuthenticationForm
