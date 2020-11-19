@@ -44,21 +44,21 @@ class ProductsView(ListView):
             return num
 
     def get_queryset(self):
-        if self.request.GET.get('category'):
-            if self.request.GET.get('q'):
-                cat = self.request.GET.get('category')
-                product = self.request.GET.get('q')
-                chosen = Category.objects.get(category__icontains=cat)
-                return chosen.product_cat.filter(title__icontains=product)
-            else:
-                return self.queryset
+        if self.request.GET.get('category') and self.request.GET.get('q'):
+            cat = self.request.GET.get('category')
+            product = self.request.GET.get('q')
+            chosen = Category.objects.get(category__icontains=cat)
+            return chosen.product_cat.filter(title__icontains=product)
+        elif self.request.GET.get('q'):
+            cat = self.request.GET['q']
+            chosen = Category.objects.get(category__icontains=cat)
+            return chosen.product_cat.all()
+        elif self.request.GET.get('category'):
+            cat = self.request.GET.get('category')
+            chosen = Category.objects.get(category__iexact=cat)
+            return chosen.product_cat.all()
         else:
-            if self.request.GET.get('q'):
-                cat = self.request.GET['q']
-                chosen = Category.objects.get(category__icontains=cat)
-                return chosen.product_cat.all()
-            else:
-                return self.queryset
+            return self.queryset
 
 
 class ProductItemView(FormMixin, DetailView):
@@ -70,19 +70,18 @@ class ProductItemView(FormMixin, DetailView):
     def post(self, request, *args, **kwargs):
         """Processes the comments written through the comment form"""
         slug, month, day, year, pk = kwargs['slug'], kwargs['month'], kwargs['day'], kwargs['year'], kwargs['pk']
-
+        params = {'slug': slug, 'month': month,
+                  'day': day, 'year': year, 'pk': pk}
         form = self.form_class(request.POST)
-        if request.user.is_authenticated:
-            if form.is_valid():
-                entry = form.save()
-                item = Products.objects.get(slug=slug)
-                entry.product = item
-                entry.author = request.user
-                entry.save()
-                return redirect(reverse('product:detail', kwargs={'slug': slug, 'month': month,
-                                                                  'day': day, 'year': year, 'pk': pk}))
-            else:
-                return render(request, self.template_name, {'form': form})
+        if request.user.is_authenticated and form.is_valid():
+            entry = form.save()
+            item = Products.objects.get(slug=slug)
+            entry.product = item
+            entry.author = request.user
+            entry.save()
+            return redirect(reverse('product:detail', kwargs=params))
+        elif not form.is_valid():
+            return render(request, self.template_name, {'form': form})
         else:
             return redirect('/login/?next=%s' % request.path)
 

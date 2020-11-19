@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'accounts.html' %}
 
 {% load static %}
 
@@ -6,8 +6,7 @@
 
 
 {% block content %}
-    <div class="signup_banner">
-        <img class="image_banner" width="200" height="80" src="{% static 'images/esprit.jpg' %}" alt="">
+    <div class="signup_banner mt-3">
         <div>
             <form action="{% url 'signup' %}" method="POST" class="signup_form">
                 <div class="login_banner px-2 py-1">
@@ -55,8 +54,7 @@
                         <span class="text-danger error">{{ form.errors.password2 }}</span>
                     </div>
                 </div>
-                <div class="px-2 py-2 buttns">
-                    <a href="{% url 'login' %}" class="btn btn-success btn-sm">Back</a>
+                <div class="px-2 py-2">
                     <button class="btn btn-sm btn-info">Submit</button>
                 </div>
             </form> 

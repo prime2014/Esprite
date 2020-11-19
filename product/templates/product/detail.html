@@ -43,7 +43,9 @@
 									<span class="text-info">Ksh {{ product.new_price }}</span>	
 								</span>
 								<h3><i>SHORT DESCRIPTION</i></h3>
-								<p class="px-2 desc mx-auto">{{ product.preview_text }}</p>
+								{% autoescape off %}
+									<p class="px-2 desc mx-auto">{{ product.preview_text }}</p>
+								{% endautoescape %}
 								
 								<p><b>Availability:</b> In Stock</p>
 								

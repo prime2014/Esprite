@@ -1,14 +1,18 @@
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormMixin
+from django.views.generic import ListView
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from .forms import SignupForm
+from product.models import Products
 
 
-class HomePageView(TemplateView):
+class HomePageView(ListView):
+    queryset = Products.objects.filter(featured=True).order_by('created')
     template_name = "home/homepage.html"
+    context_object_name = "products"
 
 
 class SignupView(FormView):

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block title %}HomePage{% endblock  %}
 
@@ -7,15 +8,49 @@
     <div class="homepage">
         <header>
             <div class="navigation-menu">
-                <h3>Esprite.com</h3>
+                <h3>Esprit.com</h3>
 
                 <ul class="list-item">
                     <li class="list-inline-item"><a href="{% url 'home' %}">Home</a></li>
-                    <li class="list-inline-item"><a href="#">About</a></li>
                     <li class="list-inline-item"><a href="{% url 'product:list' %}">Store</a></li>
+                    <li class="list-inline-item"><a href="#">Contact</a></li>
                     <li class="list-inline-item"><a href="{% url 'login' %}">Login</a></li>
+                    <li class="list-inline-item">
+                        <a href="{% url 'signup' %}" class="btn btn-success btn-sm">Register</a>
+                    </li>
                 </ul>
             </div>
         </header>
+        <div class="banner">
+            <div class="shipping px-3 py-5">
+                <h2 class="display-4">We Offer Free Shipping</h2>
+                <img width="300" height="200" src="{% static 'images/map.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="body_content px-3 py-5">
+        <div class="featured">
+            <h3><span class="feat">FEATURED</span> PRODUCTS</h3>
+            <p class="para pt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat eligendi vero harum consequatur aliquam maxime laudantium voluptatibus quis blanditiis autem voluptas magni animi quasi molestias optio excepturi illo, distinctio beatae.</p>
+            <div class="row">
+                {% for product in products  %}
+                    <div class="col-md-4 py-2">
+                        <a href="{{ product.get_absolute_url }}"><img class="feature_product" width="90%" height="200" src="{{ product.thumbnail.url }}" alt="product"></a>
+                        <p class="text-info product_title">{{ product.title }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+    <div class="classification">
+        <div class="row shop_men_wmen">
+            <div class="col-md-6 mmen">
+                <a href="/products/?category=Men's" class="btn btn-info btn-sm">Shop For men <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="col-md-6 wwomen">
+                <a href="/products/?category=Girl's" class="btn btn-danger btn-sm">Shop for Women <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
     </div>
 {% endblock  %}
