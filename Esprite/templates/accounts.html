@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'myindex.css' %}">
+    <link href="{% static 'css/prettyPhoto.css' %}" rel="stylesheet">
+    <link href="{% static 'css/price-range.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+	<link href="{% static 'css/main.css' %}" rel="stylesheet">
+	<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+    <title>{% block title %}{% endblock  %}</title>
+</head>
+<body>
+    <header id="log_bar"><!--header-->
+		<div><!--header-middle-->
+			<div class="esprit mx-2">
+				<div class="row m-auto">
+					<div class="col-md-3">
+						<div class="pull-left">
+                            <a href="{% url 'home' %}"><img width="150" height="50" src="{% static 'images/esprit.jpg' %}" alt="home"></a>
+							<p class="tagline">Shop at your own convenience</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	</header>
+      {% block content %}
+      {% endblock  %}
+</body>
+</html>

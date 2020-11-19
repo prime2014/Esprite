@@ -9,7 +9,7 @@ class GalleryModel(admin.TabularInline):
 
 @admin.register(Products)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'likes', 'stock',
+    list_display = ('title', 'slug', 'featured', 'likes', 'stock',
                     'old_price', 'new_price', 'rating', 'created')
     list_filter = ('created', 'cat', 'new_price')
     date_hierarchy = 'created'

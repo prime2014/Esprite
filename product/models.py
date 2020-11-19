@@ -24,6 +24,7 @@ class Products(models.Model):
         Category, related_name="product_cat", default="")
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
+    featured = models.BooleanField(default=False)
     preview_text = models.TextField(default="")
     full_text = models.TextField(default="")
     likes = models.IntegerField(default=0)
