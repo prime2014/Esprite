@@ -16,7 +16,60 @@ body {
     margin:0;
     padding:0;
 }
+.banner {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.shipping {
+    width:50vw;
+    color:goldenrod;
+    font-family: Play;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.shipping img {
+    margin: auto;
+}
 
+.classification{
+    height:70vh;
+}
+.classification .row {
+    height: 70vh;
+    margin: auto;
+}
+.mmen {
+    background-image: url(./images/mman.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    width:100%;
+    height:auto;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.esprit {
+    border-bottom:1px solid #ccc;
+    margin: auto;
+}
+.log_bar {
+    margin: auto;
+    width:80%;
+}
+.wwomen {
+    background-image: url(./images/wwomen.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    width: 100%;
+    height:auto;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
 .homepage {
     background:url(./travel.jpg);
     background-size: cover;
@@ -24,12 +77,35 @@ body {
     height: 100vh;
     width: 100%;
     object-fit: cover;
+    border-bottom: 3px solid darkslateblue;
 }
-
+.body_content h3 {
+    font-family: PlayFair;
+    font-weight: lighter;
+}
+.body_content .product_title {
+    width:90%;
+    text-align: center;
+}
+.para {
+    color:#999;
+}
+.feat {
+    border-bottom: 3px solid crimson;
+}
 .homepage header > div {
     display:flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.feature_product {
+    margin: auto;
+}
+
+.featured {
+    width:85vw;
+    margin:auto;
 }
 
 .navigation-menu h3 {
@@ -39,8 +115,8 @@ body {
 }
 
 .navigation-menu ul {
-    font-family: Grenze;
-    font-size: 20px;
+    font-family: PlayFair;
+    font-size: 15px;
 }
 
 .form {
@@ -77,4 +153,46 @@ body {
 .signup {
     font-family: Play;
     font-size: 14px;
+}
+
+.signup_banner {
+    width:70vw;
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup_form {
+    border:2px inset #ccc;
+}
+.signup_form input {
+    width:100%;
+    border:1px inset #ccc;
+    border-radius: 5px;
+    padding:4px 5px;
+}
+.signup_form h2,.signup_form h3 {
+    margin: 0;
+    padding: 0;
+}
+.signup_form label {
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.error {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.image_banner {
+    margin:0 auto;
+}
+
+.buttns {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
 }

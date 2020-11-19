@@ -32,7 +32,7 @@
 						</div>
 					</div>
 					<div class="col-md-5 search_bar">
-						<form action="" method="GET">
+						<form action="{% url 'product:list' %}" method="GET">
 							<select name="category" id="">
 								{% for category in categories %}
 									<option value="{{category.category}}">{{ category.category }}</option>

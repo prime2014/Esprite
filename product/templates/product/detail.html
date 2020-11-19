@@ -43,15 +43,17 @@
 									<span class="text-info">Ksh {{ product.new_price }}</span>	
 								</span>
 								<h3><i>SHORT DESCRIPTION</i></h3>
-								<p class="px-2 desc mx-auto">{{ product.preview_text }}</p>
+								{% autoescape off %}
+									<p class="px-2 desc mx-auto">{{ product.preview_text }}</p>
+								{% endautoescape %}
 								
 								<p><b>Availability:</b> In Stock</p>
 								
 								<div class="py-3 mt-3 add_submission">
-									<button type="button" class="btn btn-fefault cart mt-3">
+									<a href="{% url 'product:add_cart' product.slug %}" type="button" class="btn btn-fefault cart mt-3">
 										<i class="fa fa-shopping-cart"></i>
 										Add to cart
-									</button>
+									</a>
 								</div>
 							</div><!--/product-information-->
 						</div>
