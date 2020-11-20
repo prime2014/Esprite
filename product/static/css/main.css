@@ -39,6 +39,11 @@ a {
     -webkit-transition: 300ms;
     transition: 300ms;
 }
+.cart_items {
+    font-weight: lighter;
+}
+
+
 
 h1,
 h2,
@@ -1221,6 +1226,7 @@ h2.title {
 
 .view-product img {
     border: 1px solid #F7F7F0;
+    object-fit: fill;
     height: 380px;
     width: 100%;
 }

@@ -130,7 +130,7 @@ class CartView(ProductsView):
             products = []
         context['products'] = products
         context['num'] = self.cart_item_number()
-        context['total_sum'], context['vat_tax'] = self.get_total_amount()
+        context['total_sum'], context['vat_tax'], context['total'] = self.get_total_amount()
         return context
 
     def get_total_amount(self):
@@ -140,10 +140,11 @@ class CartView(ProductsView):
             my_order = Order.objects.get(user=self.request.user, ordered=False)
             total_sum = my_order.total_amount
             vat_tax = my_order.vat_tax
-            return [total_sum, vat_tax]
+            total = Decimal(total_sum) + Decimal(vat_tax)
+            return [total_sum, vat_tax, total]
         except:
             total_sum = Decimal(0)
-            return [total_sum, 15]
+            return [total_sum, 15, 0]
 
 
 def update_cart(request, pk):
