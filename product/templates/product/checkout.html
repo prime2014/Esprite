@@ -9,12 +9,9 @@
 
 	<section id="cart_items">
 		<div class="container">
-			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-				  <li><a href="{% url 'home' %}">Home</a></li>
-				  <li class="active">Check out</li>
-				</ol>
-			</div><!--/breadcrums-->
+			<div>
+				<h2 class="cart_items py-2">Check Out</h3>
+			</div>
 
 			<div class="shopper-informations">
 				<div class="row">
@@ -124,7 +121,7 @@
 									</tr>
 									<tr>
 										<td>Total</td>
-										<td><span>$61</span></td>
+										<td><span>Ksh <span id="amount">{{ total }}</span></span></td>
 									</tr>
 								</table>
 							</td>
@@ -132,17 +129,41 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="payment-options">
-					<span>
-						<label><input type="checkbox"> Direct Bank Transfer</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Check Payment</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Paypal</label>
-					</span>
-				</div>
+			<div class="ppaypal">
+				<div id="paypal-button-container"></div>
+			</div>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AbSIcthylDTpzLmXT5TvQt88hKJOul_QHKa5g4V4bhe4ts5IRYxlEwPHyyofrbW59g9mQVXwvnjR3pBM&currency=USD"></script>
+
+    <script>
+	    var total = parseFloat(document.getElementById("amount").innerText);
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: total
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
 		</div>
 	</section> <!--/#cart_items-->
+	
 {% endblock %}
