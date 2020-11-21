@@ -1230,7 +1230,12 @@ h2.title {
     height: 380px;
     width: 100%;
 }
-
+.paypal-button-container {
+    margin:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .view-product h3 {
     background: darkslateblue;
     bottom: 0;
@@ -1366,7 +1371,14 @@ h2.title {
     margin: 0 0 20px;
     padding: 0;
 }
-
+.ppaypal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.paypal-buttons {
+    margin: auto;
+}
 #reviews ul li {
     display: inline-block;
 }
