@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from decimal import Decimal
 from .forms import OrderForm
+from django.contrib import messages
 
 
 def authenticated(request):
@@ -142,7 +143,7 @@ class CartView(ProductsView):
             return [total_sum, vat_tax, total]
         except:
             total_sum = Decimal(0)
-            return [total_sum, 15, 0]
+            return [total_sum, 15, 15]
 
 
 def update_cart(request, pk):
@@ -160,6 +161,8 @@ def update_cart(request, pk):
     total = Order.objects.get(user=request.user, ordered=False)
     total.total_amount += selected_item.price - prev_price
     total.save()
+    messages.add_message(request, messages.INFO,
+                         'Quantity has been successfully updated')
     return redirect('product:cart')
 
 
@@ -178,8 +181,12 @@ def decrease_quantity(request, quantity, pk):
         order = Order.objects.get(user=request.user, ordered=False)
         order.total_amount -= prev_price - cart_item.price
         order.save()
+        messages.add_message(request, messages.INFO,
+                             'Quantity has been successfully updated')
         return redirect(url)
     else:
+        messages.add_message(request, messages.WARNING,
+                             'Quantity cannot be zero')
         return redirect(url)
 
 
@@ -188,6 +195,8 @@ def order_products(request):
         Q(user__username__iexact=request.user) & Q(ordered=False))
     user_order.ordered = True
     user_order.save()
+    messages.add_message(request, messages.SUCCESS,
+                         "Your order has been successfully processed")
     return redirect('product:checkout')
 
 
@@ -211,6 +220,8 @@ class CheckoutView(FormView):
             order.zip_code, order.state = zip_code, state
 
             order.save()
+            messages.add_message(request, messages.INFO,
+                                 "Billing information was successfully created")
             return render(request, self.template_name, context=self.get_context_data())
         elif not request.user.is_authenticated:
             return redirect('/login/?next=%s' % request.path)
@@ -220,6 +231,7 @@ class CheckoutView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         products = None
+        context["categories"] = Category.objects.all()
         if self.request.user.is_authenticated:
             products = Cart.objects.filter(user=self.request.user)
         else:
@@ -252,4 +264,4 @@ class CheckoutView(FormView):
             return [total_sum, vat_tax, total]
         except:
             total_sum = Decimal(0)
-            return [total_sum, 15, 0]
+            return [total_sum, 15, 15]

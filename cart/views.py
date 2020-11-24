@@ -26,19 +26,21 @@ def request_cart(request, slug):
                 cart_item.save()
                 order.total_amount += cart_item.price - prev_price
                 order.save()
-                messages.info(request, 'The cart was successfully updated')
+                messages.info(request, str(cart_item) +
+                              ' cart was successfully updated')
                 return redirect(url)
             else:
                 order.orderedproduct.add(cart_item)
                 order.total_amount += cart_item.price
                 order.save()
-                messages.info(request, 'The item was added in the cart')
+                messages.add_message(
+                    request, messages.INFO, str(cart_item) + " was successfully added to the cart")
                 return redirect(url)
         else:
             my_order = Order.objects.create(
                 user=request.user, ordered=False, total_amount=cart_item.price)
             my_order.orderedproduct.add(cart_item)
-            messages.info(request, 'The item was added in the cart')
+            messages.info(request, str(cart_item) + ' was added in the cart')
             return redirect(url)
     else:
         return redirect('/login/?next=%s' % request.path)
@@ -92,6 +94,8 @@ def remove_cart_item(request, slug):
                 customer_order = Order.objects.get(
                     user=request.user, ordered=False)
                 customer_order.delete()
+            messages.add_message(request, messages.SUCCESS, str(
+                cart_item) + " was successfully removed")
             return redirect(url)
     else:
         return redirect(url)

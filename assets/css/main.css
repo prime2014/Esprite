@@ -21,6 +21,18 @@ body {
     font-weight: 400px;
 }
 
+.myform div input {
+    width:100%;
+    background: #F0F0E9;
+    border:none;
+    padding:8px 10px;
+    color:grey;
+    font-weight: lighter;
+}
+.myform div {
+    margin-bottom: 15px;
+}
+
 ul li {
     list-style: none;
 }
@@ -39,6 +51,11 @@ a {
     -webkit-transition: 300ms;
     transition: 300ms;
 }
+.cart_items {
+    font-weight: lighter;
+}
+
+
 
 h1,
 h2,
@@ -333,7 +350,7 @@ ul.sub-menu {
     padding-left: 5px;
 }
 
-@-webkit-keyframes fadeInUp {
+@keyframes fadeInUp {
     0% {
         opacity: 0;
         -webkit-transform: translateY(20px);
@@ -1111,7 +1128,7 @@ h2.title {
     background: #ccccc6;
 }
 
-.recommended_items h2 {}
+
 
 .our_partners {
     overflow: hidden;
@@ -1221,10 +1238,16 @@ h2.title {
 
 .view-product img {
     border: 1px solid #F7F7F0;
+    object-fit: fill;
     height: 380px;
     width: 100%;
 }
-
+.paypal-button-container {
+    margin:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .view-product h3 {
     background: darkslateblue;
     bottom: 0;
@@ -1360,7 +1383,14 @@ h2.title {
     margin: 0 0 20px;
     padding: 0;
 }
-
+.ppaypal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.paypal-buttons {
+    margin: auto;
+}
 #reviews ul li {
     display: inline-block;
 }
@@ -1498,9 +1528,7 @@ h2.title {
     overflow: hidden;
 }
 
-.login-form {}
 
-.signup-form {}
 
 .login-form h2,
 .signup-form h2 {
@@ -1553,7 +1581,7 @@ h2.title {
     padding: 6px 25px;
 }
 
-.login-form label {}
+
 
 .login-form label input {
     border: medium none;
@@ -1692,7 +1720,6 @@ h2.title {
     overflow: hidden;
     text-align: center;
     width: 35px;
-    float: left;
     line-height: 28px;
 }
 
@@ -1796,7 +1823,7 @@ h2.title {
     margin-right: 10px
 }
 
-.user_info>li>span {}
+
 
 .user_info input,
 select,
@@ -2031,7 +2058,7 @@ textarea {
     margin-bottom: 17px;
 }
 
-.single-blog-post>a {}
+
 
 .blog-post-area .single-blog-post a img {
     border: 1px solid #F7F7F0;
