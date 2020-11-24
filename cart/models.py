@@ -20,6 +20,16 @@ class Cart(models.Model):
         verbose_name_plural = "Cart"
 
 
+STATE = (
+    ('NAI', 'Nairobi'),
+    ('KIS', 'Kisumu'),
+    ('NAK', 'Nakuru'),
+    ('ELD', 'Eldoret'),
+    ('NAV', 'Naivasha'),
+    ('MOM', 'Mombasa'),
+)
+
+
 class Order(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="user_order")
@@ -31,10 +41,12 @@ class Order(models.Model):
     vat_tax = models.IntegerField(default=15)
     firstname = models.CharField(max_length=200, null=True)
     lastname = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     address_1 = models.CharField(max_length=200, null=True)
     address_2 = models.CharField(max_length=200, null=True)
-    zip_code = models.IntegerField(null=True)
+    state = models.CharField(max_length=200, choices=STATE, null=True)
+    zip_code = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.user.username

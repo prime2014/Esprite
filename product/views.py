@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models import Q
 from decimal import Decimal
+from .forms import OrderForm
 
 
 def authenticated(request):
@@ -123,9 +124,6 @@ class CartView(ProductsView):
         products = None
         if self.request.user.is_authenticated:
             products = Cart.objects.filter(user=self.request.user)
-            for product in products:
-                # set a range for the stock with the ranger function
-                product.item.stock = ranger(product.item.stock)
         else:
             products = []
         context['products'] = products
@@ -185,22 +183,73 @@ def decrease_quantity(request, quantity, pk):
         return redirect(url)
 
 
-class RequestOrder(FormView):
-    """Makes the order after everything has been processed in the check out"""
-    template_name = "order/order.html"
-
-    def post(self, request, *args, **kwargs):
-        if request.method == "POST":
-            user_order = Order.objects.get(
-                Q(user__username__iexact=request.user) & Q(ordered=False))
-            user_order.ordered = True
-            user_order.save()
-            user_cart = Cart.objects.filter(user__username=request.user)
-            for cart in user_cart:
-                cart.delete()
-            return redirect('product:checkout')
+def order_products(request):
+    user_order = Order.objects.get(
+        Q(user__username__iexact=request.user) & Q(ordered=False))
+    user_order.ordered = True
+    user_order.save()
+    return redirect('product:checkout')
 
 
-class CheckoutView(CartView):
+class CheckoutView(FormView):
     """Displays items in the checkout page"""
     template_name = "product/checkout.html"
+    form_class = OrderForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if request.user.is_authenticated and form.is_valid():
+            firstname, lastname, email = form.cleaned_data[
+                'firstname'], form.cleaned_data['lastname'], form.cleaned_data['email']
+            phone, address_1, address_2 = form.cleaned_data[
+                'phone'], form.cleaned_data['address_1'], form.cleaned_data['address_2']
+            zip_code, state = form.cleaned_data['zip_code'], form.cleaned_data['state']
+
+            order = Order.objects.get(user=request.user, ordered=False)
+            order.firstname, order.lastname, order.email = firstname, lastname, email
+            order.phone, order.address_1, order.address_2 = phone, address_1, address_2
+            order.zip_code, order.state = zip_code, state
+
+            order.save()
+            return render(request, self.template_name, context=self.get_context_data())
+        elif not request.user.is_authenticated:
+            return redirect('/login/?next=%s' % request.path)
+        elif not form.is_valid():
+            return render(request, self.template_name, context=self.get_context_data())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = None
+        if self.request.user.is_authenticated:
+            products = Cart.objects.filter(user=self.request.user)
+        else:
+            products = []
+        context['products'] = products
+        context['form'] = OrderForm()
+        context['num'] = self.cart_item_number()
+        context['total_sum'], context['vat_tax'], context['total'] = self.get_total_amount()
+        return context
+
+    def cart_item_number(self):
+        """gets the number of items in the cart to display on the cart link"""
+        # if there user is authenticated
+        if self.request.user.is_authenticated:
+            products = Cart.objects.filter(user=self.request.user)
+            num = products.count() if len(products) else int(0)  # num of items in cart
+            return num
+        else:
+            num = 0
+            return num
+
+    def get_total_amount(self):
+        """Gets the total price of all items in the cart. The Order 
+            table holds the total_amount column and the vat_tax"""
+        try:
+            my_order = Order.objects.get(user=self.request.user, ordered=False)
+            total_sum = my_order.total_amount
+            vat_tax = my_order.vat_tax
+            total = Decimal(total_sum) + Decimal(vat_tax)
+            return [total_sum, vat_tax, total]
+        except:
+            total_sum = Decimal(0)
+            return [total_sum, 15, 0]
