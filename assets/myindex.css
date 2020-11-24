@@ -21,7 +21,7 @@ body {
     flex-direction: row-reverse;
     align-items: center;
 }
-.shipping {
+.leaden {
     width:50vw;
     color:goldenrod;
     font-family: Play;
@@ -29,7 +29,7 @@ body {
     flex-direction: column;
     justify-content: flex-end;
 }
-.shipping img {
+.leaden img {
     margin: auto;
 }
 
