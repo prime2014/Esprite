@@ -11,7 +11,8 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('user', 'ordered', 'total_amount', 'vat_tax', 'created')
+    list_display = ('user', 'ordered', 'total_amount', 'vat_tax', 'firstname',
+                    'lastname', 'email', 'phone', 'address_1', 'address_2', 'state', 'created')
     list_filter = ("created",)
     filter_horizontal = ('orderedproduct',)
     date_hierarchy = "created"

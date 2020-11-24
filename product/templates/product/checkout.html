@@ -15,73 +15,49 @@
 
 			<div class="shopper-informations">
 				<div class="row">
-					<div class="col-sm-3">
-						<div class="shopper-info">
-							<p>Shopper Information</p>
-							<form>
-								<input type="text" placeholder="Display Name">
-								<input type="text" placeholder="User Name">
-								<input type="password" placeholder="Password">
-								<input type="password" placeholder="Confirm password">
-							</form>
-							<a class="btn btn-primary" href="">Get Quotes</a>
-							<a class="btn btn-primary" href="">Continue</a>
-						</div>
-					</div>
-					<div class="col-sm-5 clearfix">
-						<div class="bill-to">
-							<p>Bill To</p>
-							<div class="form-one">
-								<form>
-									<input type="text" placeholder="Company Name">
-									<input type="text" placeholder="Email*">
-									<input type="text" placeholder="Title">
-									<input type="text" placeholder="First Name *">
-									<input type="text" placeholder="Middle Name">
-									<input type="text" placeholder="Last Name *">
-									<input type="text" placeholder="Address 1 *">
-									<input type="text" placeholder="Address 2">
-								</form>
+					<div class="col-md-12">
+						<form action="{% url 'product:checkout' %}" method="POST">
+							{% csrf_token %}
+							<div class="col-md-6 myform">
+								<div class="mb-3">
+									<label for="">Firstname*</label>
+									{{ form.firstname }}
+								</div>
+								<div class="mb-3">
+									<label for="">Lastname*</label>
+									{{ form.lastname }}
+								</div>
+								<div class="mb-3">
+									<label for="">Email*</label>
+									{{ form.email }}
+								</div>
+								<div class="mb-3">
+									<label for="">Phone*</label>
+									{{ form.phone }}
+								</div>
 							</div>
-							<div class="form-two">
-								<form>
-									<input type="text" placeholder="Zip / Postal Code *">
-									<select>
-										<option>-- Country --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
-									</select>
-									<select>
-										<option>-- State / Province / Region --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
-									</select>
-									<input type="password" placeholder="Confirm password">
-									<input type="text" placeholder="Phone *">
-									<input type="text" placeholder="Mobile Phone">
-									<input type="text" placeholder="Fax">
-								</form>
+							<div class="col-md-6 myform">
+								<div class="mb-3">
+									<label for="">Address 1*</label>
+									{{ form.address_1 }}
+								</div>
+								<div class="mb-3">
+									<label for="">Address 2*</label>
+									{{ form.address_2 }}
+								</div>
+								<div class="mb-3">
+									<label for="">ZIP code*</label>
+									{{ form.zip_code }}
+								</div>
+								<div class="mb-3">
+									<label for="">State*</label>
+									{{ form.state }}
+								</div>
 							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="order-message">
-							<p>Shipping Order</p>
-							<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-							<label><input type="checkbox"> Shipping to bill address</label>
-						</div>	
+							<div>
+								<button type="submit" class="btn btn-outline btn-info btn-sm mx-2">Submit</button>
+							</div>
+						</form>
 					</div>					
 				</div>
 			</div>
@@ -154,10 +130,12 @@
 
             // Finalize the transaction
             onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
+                actions.order.capture().then(function(details) {
                     // Show a success message to the buyer
                     alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                });
+                }).then(resp=> {
+					return window.location = "http://127.0.0.1:8000/products/order/";
+				})
             }
 
 
@@ -166,4 +144,4 @@
 		</div>
 	</section> <!--/#cart_items-->
 	
-{% endblock %}
+{% endblock %} 

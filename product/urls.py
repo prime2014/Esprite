@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import ProductsView, ProductItemView, CartView, RequestOrder, update_cart, CheckoutView, decrease_quantity
+from .views import ProductsView, ProductItemView, CartView, update_cart, CheckoutView, decrease_quantity, order_products
 from cart.views import request_cart, remove_cart, remove_cart_item
 
 
@@ -20,5 +20,5 @@ urlpatterns = [
         update_cart, name="update"),
     url(r'^decrease-quantity/(?P<quantity>[0-9]+)/(?P<pk>[0-9]+)/$',
         decrease_quantity, name="decrease"),
-    url(r'^order/$', RequestOrder.as_view(), name="order")
+    url(r'^order/$', order_products, name="order")
 ]
