@@ -10,6 +10,7 @@ from django.db.models import Q
 from decimal import Decimal
 from .forms import OrderForm
 from django.contrib import messages
+from django.core.mail import send_mail
 
 
 def authenticated(request):
@@ -194,7 +195,10 @@ def order_products(request):
     user_order = Order.objects.get(
         Q(user__username__iexact=request.user) & Q(ordered=False))
     user_order.ordered = True
-    user_order.save()
+    cart = Cart.objects.filter(user=request.user)
+    for item in cart:
+        item.delete()
+    user_order.delete()
     messages.add_message(request, messages.SUCCESS,
                          "Your order has been successfully processed")
     return redirect('product:checkout')
