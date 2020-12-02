@@ -11,6 +11,7 @@ class Cart(models.Model):
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(max_digits=9, decimal_places=2, null=True)
     created = models.DateTimeField(auto_now_add=True)
+    bought = models.BooleanField(default=False)
 
     def __str__(self):
         return self.item.title

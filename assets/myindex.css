@@ -12,6 +12,11 @@
     src: url(./fonts/static/PlayfairDisplay-Regular.ttf);
     font-family: Play;
 }
+
+@font-face {
+    src: url(./fonts/Raleway-VariableFont_wght.ttf);
+    font-family: Rale;
+}
 body {
     margin:0;
     padding:0;
@@ -117,6 +122,11 @@ body {
 .navigation-menu ul {
     font-family: PlayFair;
     font-size: 15px;
+}
+
+.navigation-menu ul li a {
+    color:#eee;
+    font-family: Rale;
 }
 
 .form {
