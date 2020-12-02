@@ -4,7 +4,8 @@ from .models import Cart, Order
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'user', 'quantity', 'price', 'item', 'created')
+    list_display = ('pk', 'user', 'quantity', 'price',
+                    'item', 'bought', 'created')
     list_filter = ('created',)
     date_hierarchy = "created"
 

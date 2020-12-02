@@ -39,7 +39,8 @@ class ProductsView(ListView):
     def cart_item_number(self):
         """gets the number of items in the cart to display on the cart link"""
         if self.request.user.is_authenticated:
-            products = Cart.objects.filter(user=self.request.user)
+            products = Cart.objects.filter(
+                bought=False, user=self.request.user)
             num = products.count() if len(products) else int(0)
             return num
         else:
@@ -108,7 +109,8 @@ class ProductItemView(FormMixin, DetailView):
         """gets the number of items in the cart to display on the cart link"""
         # if there user is authenticated
         if self.request.user.is_authenticated:
-            products = Cart.objects.filter(user=self.request.user)
+            products = Cart.objects.filter(
+                user=self.request.user, bought=False)
             num = products.count() if len(products) else int(0)  # num of items in cart
             return num
         else:
@@ -125,7 +127,8 @@ class CartView(ProductsView):
         context = super().get_context_data(**kwargs)
         products = None
         if self.request.user.is_authenticated:
-            products = Cart.objects.filter(user=self.request.user)
+            products = Cart.objects.filter(
+                user=self.request.user, bought=False)
         else:
             products = []
         context['products'] = products
@@ -195,10 +198,11 @@ def order_products(request):
     user_order = Order.objects.get(
         Q(user__username__iexact=request.user) & Q(ordered=False))
     user_order.ordered = True
-    cart = Cart.objects.filter(user=request.user)
+    user_order.save()
+    cart = Cart.objects.filter(user=request.user, bought=False)
     for item in cart:
-        item.delete()
-    user_order.delete()
+        item.bought = True
+        item.save()
     messages.add_message(request, messages.SUCCESS,
                          "Your order has been successfully processed")
     return redirect('product:checkout')
@@ -237,7 +241,8 @@ class CheckoutView(FormView):
         products = None
         context["categories"] = Category.objects.all()
         if self.request.user.is_authenticated:
-            products = Cart.objects.filter(user=self.request.user)
+            products = Cart.objects.filter(
+                user=self.request.user, bought=False)
         else:
             products = []
         context['products'] = products
@@ -250,7 +255,8 @@ class CheckoutView(FormView):
         """gets the number of items in the cart to display on the cart link"""
         # if there user is authenticated
         if self.request.user.is_authenticated:
-            products = Cart.objects.filter(user=self.request.user)
+            products = Cart.objects.filter(
+                user=self.request.user, bought=False)
             num = products.count() if len(products) else int(0)  # num of items in cart
             return num
         else:
